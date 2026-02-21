@@ -1,18 +1,845 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f0f0f0; }
-        h1 { color: #333; }
-        .button { background-color: #4CAF50; color: white; padding: 15px 32px; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Isekai Nusantara · Aggre To Isekai ✨</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+}
+
+body {
+min-height: 100vh;
+background: radial-gradient(ellipse at top, #2a1b0e, #1a0f0a);
+color: #f3e9ff;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+position: relative;
+overflow-x: hidden;
+}
+
+/* Motif batik parang sederhana di background */
+body::before {
+content: '';
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background-image:
+repeating-linear-gradient(45deg,
+rgba(210, 50, 50, 0.08) 0px, rgba(210, 50, 50, 0.08) 20px,
+rgba(240, 200, 100, 0.05) 20px, rgba(240, 200, 100, 0.05) 40px),
+repeating-linear-gradient(135deg,
+rgba(255, 215, 0, 0.03) 0px, rgba(255, 215, 0, 0.03) 25px,
+transparent 25px, transparent 50px);
+pointer-events: none;
+z-index: 0;
+}
+
+/* elemen wayang di pojok */
+body::after {
+content: '☯';
+position: absolute;
+bottom: 20px; right: 20px;
+font-size: 80px;
+color: rgba(255, 200, 100, 0.1);
+font-family: 'Arial';
+transform: rotate(10deg);
+pointer-events: none;
+z-index: 0;
+}
+
+.card {
+max-width: 1000px;
+width: 100%;
+background: rgba(40, 20, 10, 0.85);
+backdrop-filter: blur(15px);
+border: 3px solid;
+border-image: linear-gradient(145deg, #d42e2e, #f7c35c) 1;
+border-radius: 48px;
+padding: 2.5rem 2rem;
+box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 2px #b55a3a inset, 0 0 30px #ffaa33;
+transition: 0.3s;
+z-index: 2;
+position: relative;
+}
+
+/* sudut batik */
+.card::before {
+content: '';
+position: absolute;
+top: -10px; left: -10px; width: 100px; height: 100px;
+background: radial-gradient(circle, #e05a2e40 0%, transparent 70%);
+border-radius: 50%;
+filter: blur(10px);
+}
+
+h1 {
+font-size: 2.8rem;
+font-weight: 800;
+text-align: center;
+background: linear-gradient(145deg, #ff3a3a, #ffffff, #ffcc00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+margin-bottom: 0.2rem;
+filter: drop-shadow(0 10px 6px #00000050);
+text-shadow: 2px 2px 0 #aa2b2b;
+}
+
+.sub {
+text-align: center;
+margin-bottom: 2rem;
+font-style: italic;
+color: #ffddbb;
+border-bottom: 1px dashed #cc9f6b;
+padding-bottom: 0.8rem;
+}
+.sub i {
+color: #ff4d4d;
+}
+
+.btn-group {
+display: flex;
+gap: 1rem;
+justify-content: center;
+flex-wrap: wrap;
+margin: 1.5rem 0 2rem;
+}
+
+.isekai-btn, .detail-btn {
+border: none;
+border-radius: 60px;
+padding: 1rem 2rem;
+font-size: 1.5rem;
+font-weight: 700;
+color: #fff2d4;
+text-shadow: 0 2px 5px #b34b00;
+cursor: pointer;
+box-shadow: 0 20px 30px -10px #000, 0 0 20px #f09b4a;
+transition: 0.2s;
+border: 2px solid #ffb86b;
+background: linear-gradient(145deg, #a03d1a, #642a0e);
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.detail-btn {
+background: linear-gradient(145deg, #2f4b6e, #1a2c40);
+border-color: #8bb4ff;
+}
+
+.isekai-btn:hover {
+transform: scale(1.02);
+box-shadow: 0 20px 40px -5px #ff6a00, 0 0 40px #ffb56b;
+background: linear-gradient(145deg, #c45123, #8a3b17);
+}
+
+.detail-btn:hover {
+transform: scale(1.02);
+box-shadow: 0 20px 40px -5px #2a7fff, 0 0 40px #a3c6ff;
+background: linear-gradient(145deg, #3f6290, #243b5c);
+}
+
+.back-btn {
+background: linear-gradient(145deg, #7a4a2e, #4f301d);
+border: 2px solid #e5b073;
+color: white;
+padding: 0.8rem 2rem;
+border-radius: 40px;
+font-size: 1.2rem;
+font-weight: 600;
+cursor: pointer;
+margin-bottom: 2rem;
+display: inline-block;
+transition: 0.2s;
+}
+
+.back-btn:hover {
+background: linear-gradient(145deg, #9e623d, #6f4328);
+box-shadow: 0 0 20px #ffb25e;
+}
+
+.page {
+display: block;
+}
+
+.hidden {
+display: none;
+}
+
+.character-container {
+display: flex;
+flex-wrap: wrap;
+gap: 2rem;
+background: #2b1b0eb3;
+border-radius: 40px;
+padding: 2rem;
+border: 2px solid #c8823a;
+margin-top: 1rem;
+position: relative;
+box-shadow: 0 10px 20px #00000060, inset 0 0 30px #b3682a40;
+}
+
+/* efek tier tertinggi dengan warna emas/merah */
+.character-container.highest-tier-SSRplus {
+box-shadow: 0 0 30px #ffb347, 0 0 60px #d43f00;
+}
+.character-container.highest-tier-SSR {
+box-shadow: 0 0 30px #ff6acb, 0 0 60px #b200ff;
+}
+.character-container.highest-tier-S {
+box-shadow: 0 0 30px #ffdb6f;
+}
+
+.avatar {
+flex: 0 0 200px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.5rem;
+}
+
+.avatar-img {
+width: 200px;
+height: 280px;
+background: #4a2c1a;
+border-radius: 30px;
+border: 4px solid #ed9f4b;
+box-shadow: 0 10px 20px #00000080;
+overflow: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: 0.3s;
+}
+
+.avatar-img img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+background: #614127;
+}
+
+.char-name {
+font-size: 1.8rem;
+font-weight: 700;
+background: linear-gradient(145deg, #ffb347, #ff7ee7);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-align: center;
+}
+
+.stats {
+flex: 1;
+min-width: 300px;
+}
+
+.stat-line {
+display: flex;
+align-items: baseline;
+padding: 0.7rem 0;
+border-bottom: 1px solid #b2763b;
+font-size: 1.2rem;
+}
+
+.stat-label {
+width: 130px;
+font-weight: 600;
+color: #f7b56b;
+}
+
+.stat-value {
+font-weight: 700;
+color: #fff2d4;
+text-transform: uppercase;
+}
+
+.tier-badge {
+display: inline-block;
+padding: 0.3rem 0.9rem;
+border-radius: 30px;
+font-size: 0.9rem;
+font-weight: 800;
+margin-right: 0.5rem;
+margin-bottom: 0.3rem;
+background: #2a1a0e;
+border: 1px solid currentColor;
+box-shadow: 0 0 10px currentColor;
+}
+
+.tier-E { color: #a0a0b0; border-color: #6f6f8f; }
+.tier-D { color: #6fc76f; border-color: #3f9f3f; }
+.tier-C { color: #6fb5ff; border-color: #2f7acf; }
+.tier-B { color: #c77fff; border-color: #9f4fcf; }
+.tier-A { color: #ffaa6f; border-color: #cf7f2f; }
+.tier-S { color: #ffdb6f; border-color: #cfaf2f; }
+.tier-SSR { color: #ff8ac9; border-color: #cf3f8f; text-shadow: 0 0 5px #ff9acb; }
+.tier-SSRplus { color: #ffbe6f; border-color: #ff9f2f; background: linear-gradient(145deg, #553f1f, #2a1f0f); font-weight: 900; }
+
+.items-grid {
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem 1rem;
+margin-top: 0.8rem;
+}
+
+.item-chip {
+background: #3f2c19;
+border-radius: 30px;
+padding: 0.3rem 1.2rem;
+font-size: 0.9rem;
+border: 1px solid #b7772e;
+color: #f0dbb4;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+}
+
+.infinity-badge {
+background: linear-gradient(145deg, #ffd966, #f2b807);
+color: #1f0f3a;
+font-weight: 900;
+padding: 0.3rem 1rem;
+border-radius: 30px;
+margin-left: 1rem;
+box-shadow: 0 0 20px gold;
+}
+
+.biodata-box {
+margin-top: 1.5rem;
+padding: 1.5rem;
+background: #2b1c0eb3;
+border-radius: 30px;
+border-left: 8px solid #e59b4a;
+font-style: italic;
+color: #fae1b6;
+box-shadow: 0 10px 20px #00000040;
+font-size: 1.1rem;
+line-height: 1.6;
+}
+
+.biodata-box i {
+color: #ffb347;
+margin-right: 10px;
+}
+
+.details-container {
+background: #2b1b0eb3;
+border-radius: 40px;
+padding: 2rem;
+border: 1px solid #b87a3a;
+margin-top: 1rem;
+max-height: 600px;
+overflow-y: auto;
+color: #f3ddc1;
+}
+
+.details-section {
+margin-bottom: 2rem;
+}
+
+.details-section h2 {
+color: #ffd7a5;
+border-left: 6px solid #e59b4a;
+padding-left: 1rem;
+margin-bottom: 1rem;
+font-size: 1.8rem;
+}
+
+.details-section p {
+margin-bottom: 0.8rem;
+line-height: 1.7;
+color: #f3dabc;
+}
+
+.details-section ul {
+list-style: none;
+display: flex;
+flex-wrap: wrap;
+gap: 0.8rem;
+}
+
+.details-section li {
+background: #3f2b16;
+padding: 0.5rem 1.2rem;
+border-radius: 30px;
+border: 1px solid #b87333;
+font-size: 0.95rem;
+color: #ffdebc;
+}
+
+.details-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+gap: 1rem;
+}
+
+.detail-item {
+background: #352415;
+border-radius: 20px;
+padding: 1rem;
+border-left: 5px solid #e59b4a;
+}
+
+.detail-item strong {
+color: #ffb347;
+display: block;
+margin-bottom: 0.5rem;
+font-size: 1.2rem;
+}
+
+footer {
+margin-top: 2rem;
+text-align: center;
+font-size: 0.9rem;
+color: #b28a5c;
+}
+
+.loading {
+text-align: center;
+padding: 2rem;
+color: #f7bc6b;
+}
+
+.gender-badge {
+display: inline-block;
+background: #5a351e;
+border-radius: 20px;
+padding: 0.2rem 1rem;
+margin-left: 1rem;
+font-size: 0.9rem;
+border: 1px solid #e5943a;
+color: #ffdcb1;
+}
+
+.avatar-badges {
+display: flex;
+flex-wrap: wrap;
+gap: 5px;
+justify-content: center;
+margin-top: 5px;
+}
+.role-badge, .job-badge {
+font-size: 0.75rem;
+padding: 4px 10px;
+border-radius: 20px;
+background: #6b3f1f;
+border: 1px solid #ffae6d;
+color: #fff0d4;
+font-weight: 600;
+}
+</style>
 </head>
 <body>
-    <h1>Welcome Ngabs...</h1>
-    <p>Note : ini cuman halaman pertama. Tekan tombol dibawah untuk melanjutkan</p>
-    <a href="#more" class="button"> >>PENCET<< </a>
+<div class="card">
+<h1>⚔️ AGGRE TO ISEKAI ⚔️</h1>
+<div class="sub"><i class="fas fa-map-pin"></i> Bikin Karakter Isekai Lu :v <i class="fas fa-map-pin"></i></div>
+
+<!-- Tombol navigasi -->
+<div class="btn-group">
+<button class="isekai-btn" id="isekaiBtn"><i class="fas fa-dragon"></i> Aggre To Isekai <i class="fas fa-arrow-right"></i></button>
+<button class="detail-btn" id="detailBtn"><i class="fas fa-book-open"></i> Rincian & Penjelasan</button>
+</div>
+
+<!-- Halaman Generator (Page 1) -->
+<div id="generatorPage" class="page">
+<div id="resultArea">
+<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Menunggu panggilan takdir...</div>
+</div>
+</div>
+
+<!-- Halaman Rincian (Page 2) -->
+<div id="detailsPage" class="page hidden">
+<button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Kembali ke Generator</button>
+<div class="details-container">
+<!-- ROLE SECTION -->
+<div class="details-section">
+<h2><i class="fas fa-shield-alt"></i> Role – Peran Utama (40+ Role)</h2>
+<p>Role menentukan gaya bertarung dan posisi dalam party. Berikut penjelasan rinci setiap role:</p>
+<div class="details-grid">
+<div class="detail-item"><strong>Knight</strong> - Tank dengan pertahanan tertinggi, ahli melindungi rekan. Armor tebal, shield besar.</div>
+<div class="detail-item"><strong>Magicer</strong> - Penyihir elemen (api/air/angin/tanah). Damage sihir besar, fisik lemah.</div>
+<div class="detail-item"><strong>Alchemist</strong> - Meracik ramuan, buff, debuff. Bisa mengubah item menjadi senjata.</div>
+<div class="detail-item"><strong>Archer</strong> - Serangan jarak jauh dengan busur, akurat dan kritis. Biasanya lincah.</div>
+<div class="detail-item"><strong>Swordsman</strong> - Pedang satu tangan, seimbang antara ofensif dan defensif.</div>
+<div class="detail-item"><strong>Berserker</strong> - Damage fisik gila-gilaan, pertahanan rendah. Makin rendah HP makin kuat.</div>
+<div class="detail-item"><strong>Paladin</strong> - Knight suci dengan sihir penyembuhan. Bisa tank dan heal.</div>
+<div class="detail-item"><strong>Dark Knight</strong> - Knight kegelapan, menggunakan darah atau kekuatan iblis. Damage tinggi.</div>
+<div class="detail-item"><strong>Assassin</strong> - Serangan cepat, critical tinggi, bisa menghilang. One-hit kill specialist.</div>
+<div class="detail-item"><strong>Ninja</strong> - Mirip assassin tapi dengan jurus rahasia dan shuriken. Lincah dan sulit ditangkap.</div>
+<div class="detail-item"><strong>Samurai</strong> - Pendekar pedang dengan bushido, serangan beruntun, armor sedang.</div>
+<div class="detail-item"><strong>Monk</strong> - Petarung tangan kosong, pertahanan batin tinggi, bisa menyembuhkan diri.</div>
+<div class="detail-item"><strong>Priest</strong> - Healer murni, bisa menghidupkan rekan, anti-undead.</div>
+<div class="detail-item"><strong>Bishop</strong> - Versi lebih kuat dari Priest, punya sihir ofensif ringan.</div>
+<div class="detail-item"><strong>Shaman</strong> - Memanggil roh, memberikan totem buff, elemen alam.</div>
+<div class="detail-item"><strong>Druid</strong> - Berubah menjadi hewan, mengendalikan alam, heal dan damage.</div>
+<div class="detail-item"><strong>Summoner</strong> - Memanggil monster untuk bertarung, bisa berbagai tipe.</div>
+<div class="detail-item"><strong>Necromancer</strong> - Membangkitkan undead, mengendalikan kegelapan, serangan racun.</div>
+<div class="detail-item"><strong>Mage</strong> - Penyihir umum, banyak varian elemen. (spesialisasi)</div>
+<div class="detail-item"><strong>Wizard</strong> - Mage yang lebih fokus pada sihir destruktif.</div>
+<div class="detail-item"><strong>Sorcerer</strong> - Mage dengan sihir chaos, tidak terduga.</div>
+<div class="detail-item"><strong>Spellblade</strong> - Menggabungkan pedang dan sihir, bisa enchant senjata.</div>
+<div class="detail-item"><strong>Ranger</strong> - Ahli bertahan hidup di alam liar, panah + perangkap.</div>
+<div class="detail-item"><strong>Hunter</strong> - Pemburu monster, tahu kelemahan musuh.</div>
+<div class="detail-item"><strong>Thief</strong> - Mencuri, membuka kunci, hindari musuh. Damage sedang.</div>
+<div class="detail-item"><strong>Bard</strong> - Memberikan buff melalui musik, juga bisa debuff musuh.</div>
+<div class="detail-item"><strong>Dancer</strong> - Gerakan memikat, buff party, kadang menyembuhkan.</div>
+<div class="detail-item"><strong>Merchant</strong> - Bisa menghasilkan uang, menjual barang, beli item unik.</div>
+<div class="detail-item"><strong>Blacksmith</strong> - Memperbaiki dan meningkatkan perlengkapan, bisa bertarung dengan palu.</div>
+<div class="detail-item"><strong>Tamer</strong> - Menjinakkan monster, menjadikan mereka pet.</div>
+<div class="detail-item"><strong>Lancer</strong> - Pengguna tombak, jangkauan panjang, kuat melawan penunggang.</div>
+<div class="detail-item"><strong>Gunner</strong> - Senjata api (jika dunia isekai ada), damage fisik jarak jauh.</div>
+<div class="detail-item"><strong>Cleric</strong> - Mirip priest tapi lebih militer, bisa menggunakan armor.</div>
+<div class="detail-item"><strong>Sage</strong> - Mage bijaksana, menguasai banyak sihir, sering jadi penasihat.</div>
+<div class="detail-item"><strong>Archmage</strong> - Mage legendaris, sihir area luas.</div>
+<div class="detail-item"><strong>Warlock</strong> - Terikat dengan iblis, mendapatkan kekuatan dengan harga mahal.</div>
+<div class="detail-item"><strong>Illusionist</strong> - Menciptakan ilusi, mengelabui musuh.</div>
+<div class="detail-item"><strong>Battlemage</strong> - Mage dengan baju besi, bertarung di garis depan.</div>
+<div class="detail-item"><strong>Templar</strong> - Ksatria suci dengan sihir, anti-iblis.</div>
+<div class="detail-item"><strong>Valkyrie</strong> - Prajurit wanita legendaris, bisa terbang, memanggil petir.</div>
+<div class="detail-item"><strong>Reaper</strong> - Penjemput nyawa, serangan instan kill.</div>
+</div>
+</div>
+
+<!-- JOB CLASS SECTION -->
+<div class="details-section">
+<h2><i class="fas fa-briefcase"></i> Job Class – Spesialisasi Unik (16+ Job)</h2>
+<p>Job class memberikan skill khusus dan membedakan karakter meskipun role sama. Berikut detail tiap job class:</p>
+<ul style="display: block; list-style: disc; padding-left: 1.5rem;">
+<li><strong>Warrior</strong> – Pakar segala senjata fisik, bisa menggunakan berbagai armor.</li>
+<li><strong>Mage</strong> – Menguasai elemen dasar (api, es, petir). Dapat mempelajari sihir dari scroll.</li>
+<li><strong>Thief</strong> – Skill mencuri, membuka kunci, dan menghindar. Cukup lincah.</li>
+<li><strong>Priest</strong> – Heal, buff, dan sihir suci. Dapat mengusir undead.</li>
+<li><strong>Paladin</strong> – Gabungan Knight dan Priest. Bisa tank dan heal.</li>
+<li><strong>Dark Knight</strong> – Kekuatan dari darah atau kegelapan. Semakin sakit semakin kuat.</li>
+<li><strong>Ranger</strong> – Spesialis panah dan perangkap. Bisa track musuh.</li>
+<li><strong>Summoner</strong> – Panggil monster dari kontrak. Butuh mana besar.</li>
+<li><strong>Berserker</strong> – Semakin rendah HP, semakin besar damage. Bisa masuk mode “rage”.</li>
+<li><strong>Sage</strong> – Menguasai semua elemen sihir, tapi lemah fisik.</li>
+<li><strong>Ninja</strong> – Bisa menghilang, serangan bayangan, racun.</li>
+<li><strong>Dancer</strong> – Memberikan buff melalui tarian, juga bisa menyembuhkan.</li>
+<li><strong>Gambler</strong> – Mengandalkan keberuntungan, efek acak bisa sangat menguntungkan atau merugikan.</li>
+<li><strong>Spell Fencer</strong> – Menyihir pedangnya, bisa mengubah elemen serangan.</li>
+<li><strong>Beast Tamer</strong> – Menjinakkan beast, bisa bertarung bersama.</li>
+<li><strong>Soul Reaper</strong> – Memanen jiwa musuh untuk memperkuat diri. Jurus kematian.</li>
+</ul>
+</div>
+
+<!-- TIER ITEM SECTION -->
+<div class="details-section">
+<h2><i class="fas fa-star"></i> Tier Item – Tingkat Kelangkaan & Kekuatan</h2>
+<p>Setiap item memiliki tier yang mempengaruhi stat dan efeknya. Berikut penjelasan lengkap dari terendah ke tertinggi:</p>
+<div class="details-grid">
+<div class="detail-item"><span class="tier-badge tier-E">E</span> <strong>Common (E)</strong> – Item biasa, mudah ditemukan di toko desa. Hanya memberikan sedikit bonus.</div>
+<div class="detail-item"><span class="tier-badge tier-D">D</span> <strong>Uncommon (D)</strong> – Sedikit lebih baik, biasanya hasil craft atau monster biasa.</div>
+<div class="detail-item"><span class="tier-badge tier-C">C</span> <strong>Rare (C)</strong> – Mulai berharga. Dijatuhkan oleh mini-boss atau dungeon tingkat rendah.</div>
+<div class="detail-item"><span class="tier-badge tier-B">B</span> <strong>Super Rare (B)</strong> – Kuat, punya efek tambahan. Biasanya dari boss atau quest langka.</div>
+<div class="detail-item"><span class="tier-badge tier-A">A</span> <strong>Epic (A)</strong> – Sangat kuat, bisa mengubah jalannya pertarungan. Hanya dari raid boss atau event.</div>
+<div class="detail-item"><span class="tier-badge tier-S">S</span> <strong>Legendary (S)</strong> – Legendaris, punya nama unik dan sejarah. Dapat meningkatkan kekuatan pemilik secara drastis.</div>
+<div class="detail-item"><span class="tier-badge tier-SSR">SSR</span> <strong>Mythic (SSR)</strong> – Item dewa, hanya segelintir orang yang memilikinya. Efeknya bisa mengubah realitas (misal: menghidupkan kembali).</div>
+<div class="detail-item"><span class="tier-badge tier-SSRplus">SSR++</span> <strong>Godly (SSR++)</strong> – Puncak segalanya. Item dengan tier ini biasanya adalah artifact penciptaan, memberikan kekuatan tak terbatas, dan hanya dimiliki oleh satu karakter dalam satu waktu.</div>
+</div>
+<p style="margin-top: 1rem;">Setiap item yang muncul di karakter akan memiliki tier yang ditampilkan dengan warna badge.</p>
+</div>
+
+<!-- LEVEL SECTION -->
+<div class="details-section">
+<h2><i class="fas fa-level-up-alt"></i> Level & Fenomena ∞ Infinity</h2>
+<p>Level karakter berkisar dari 1 hingga 999. Namun ada peluang sangat langka (1/500) mendapatkan level <strong>∞ Infinity</strong>, yang menandakan karakter tersebut sudah melampaui batas duniawi. Karakter dengan level ∞ biasanya memiliki kekuatan dewa dan tidak terikat oleh aturan level biasa. Item dan skill mereka juga cenderung berada di tier tertinggi. Dalam tampilan, level ∞ akan diberi badge khusus <span class="infinity-badge"><i class="fas fa-star"></i> LEGENDARY</span>.</p>
+</div>
+
+<!-- ITEM & EQUIPMENT SECTION -->
+<div class="details-section">
+<h2><i class="fas fa-chess-board"></i> Item & Equipment</h2>
+<p>Setiap karakter membawa 4–7 item yang terdiri dari berbagai jenis. Berikut jenis-jenis item yang bisa muncul:</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<li>Helmet</li><li>Chestplate</li><li>Gauntlets</li><li>Boots</li><li>Shield</li><li>Sword</li><li>Axe</li><li>Bow</li>
+<li>Staff</li><li>Dagger</li><li>Spear</li><li>Wand</li><li>Ring</li><li>Amulet</li><li>Cloak</li><li>Gloves</li>
+<li>Belt</li><li>Greaves</li><li>Pauldrons</li><li>Crown</li><li>Orb</li><li>Tome</li><li>Quiver</li><li>Arrow</li>
+</ul>
+<p>Nama item digabungkan dengan kata sifat (misal: <em>Dragonbone Sword</em>, <em>Elven Bow</em>) yang juga mempengaruhi tema item. Kombinasi antara adjektif dan jenis item menghasilkan variasi tak terbatas.</p>
+</div>
+</div>
+</div>
+
+<footer>✨ Note : *Kalo abis Gacha pertama Wajib SekrinShot :v ✨</footer>
+</div>
+
+<script>
+(function() {
+// ========== NAMA INDONESIA ==========
+const firstNames = [
+"Asep", "Udin", "Siti", "Yanti", "Budi", "Joko", "Rina", "Dewi", "Agus", "Sri",
+"Hendra", "Tuti", "Rudi", "Maya", "Indra", "Wulan", "Eko", "Nur", "Fitri", "Bayu",
+"Ratna", "Dedi", "Sari", "Yoga", "Lestari", "Putra", "Putri", "Wijaya", "Kusuma",
+"Santoso", "Purnama", "Hidayat", "Ningsih", "Utami", "Setiawan", "Cahya", "Gilang",
+"Intan", "Karina", "Lukman", "Maman", "Nana", "Oman", "Popon", "Qori", "Rizky",
+"Saepul", "Taufik", "Ujang", "Vina", "Wawan", "Yusuf", "Zahra"
+];
+
+const lastNames = [
+"Sunandar", "Saepudin", "Nurhaliza", "Purnama", "Kusuma", "Wijaya", "Santoso",
+"Hidayat", "Setiawan", "Siregar", "Nasution", "Ginting", "Tambunan", "Saragih",
+"Sinaga", "Sihombing", "Sitompul", "Siahaan", "Simanjuntak", "Sitorus", "Siburian",
+"Situmeang", "Sitohang", "Sirait", "Sitepu", "Hasibuan", "Harahap", "Tan", "Lim",
+"Gunawan", "Halim", "Salim", "Kurniawan", "Prasetyo", "Nugroho", "Wibowo", "Saputra",
+"Pamungkas", "Cahyono", "Susanto", "Suryadi", "Suryana", "Maulana", "Ramadhan",
+"Fauzi", "Hasan", "Husen", "Abdullah", "Rahman", "Rasyid", "Sutisna", "Suparman"
+];
+
+// Data pools lain
+const roles = [
+"Knight", "Magicer", "Alchemist", "Archer", "Swordsman", "Berserker", "Paladin", "Dark Knight",
+                "Assassin", "Ninja", "Samurai", "Monk", "Priest", "Bishop", "Shaman", "Druid", "Summoner",
+                "Necromancer", "Mage", "Wizard", "Sorcerer", "Spellblade", "Ranger", "Hunter", "Thief",
+                "Bard", "Dancer", "Merchant", "Blacksmith", "Tamer", "Lancer", "Gunner", "Cleric",
+                "Sage", "Archmage", "Warlock", "Illusionist", "Battlemage", "Templar", "Valkyrie", "Reaper"
+            ];
+
+            const jobClasses = [
+                "Warrior", "Mage", "Thief", "Priest", "Paladin", "Dark Knight", "Ranger", "Summoner",
+                "Berserker", "Sage", "Ninja", "Dancer", "Gambler", "Spell Fencer", "Beast Tamer", "Soul Reaper"
+            ];
+
+            const itemTypes = [
+                "Helmet", "Chestplate", "Gauntlets", "Boots", "Shield", "Sword", "Axe", "Bow",
+                "Staff", "Dagger", "Spear", "Wand", "Ring", "Amulet", "Cloak", "Gloves",
+                "Belt", "Greaves", "Pauldrons", "Crown", "Orb", "Tome", "Quiver", "Arrow"
+            ];
+
+            const tierList = ["E", "D", "C", "B", "A", "S", "SSR", "SSR++"];
+
+            const itemAdjectives = [
+                "Rusty", "Iron", "Steel", "Mithril", "Orichalcum", "Crystal", "Obsidian", "Dragonbone",
+                "Elven", "Dwarven", "Demonic", "Angelic", "Shadow", "Flaming", "Frozen", "Thunder",
+                "Mystic", "Arcane", "Soul", "Cursed", "Blessed", "Royal", "Ancient", "Eternal"
+            ];
+
+            const genders = ["Pria", "Wanita"];
+
+            // Biodata templates (gaul, liar, toxic)
+            const biodataTemplates = [
+                "{name} itu, anjay, seorang {role} dari pelosok desa. Dulu {subjek} pernah {peristiwa}, sekarang niatnya {tujuan}. Bangsat emang.",
+                "Dulu sih, {name} cuma {role} cupu. Eh, abis {peristiwa}, malah dapet job class {jobClass}. Anjir, auto GG!",
+                "{name} dikenal sebagai {role} paling barbar. Katanya sih {subjek} pernah {peristiwa}. Sekarang levelnya udah {level}, bawa {itemCount} item sakti. Edan!",
+                "Takdir membawa {name} jadi {jobClass} dengan role {role}. Seringnya sih ngomong: '{quote}'. Bikin emosi!",
+                "Di dunia isekai ini, {name}重生 (reinkarnasi) jadi {role}. Masa lalunya kelam banget: {peristiwa}. Sekarang {subjek} ngejar {tujuan}. Gas pol, bangsat!",
+                "Dengan senjata andalan {item1}, {name} udah bantai banyak musuh. {subjek} satu-satunya {role} yang bisa make {jobClass}. Sakti bener, anjay!",
+                "{name} (level {level}) punya mimpi jadi yang terkuat. Sebagai {role}, {subjek} keliling dunia nyari jati diri. Sok filosofis, padahal mah...",
+                "Katanya {name} titisan dewa. Lahir dengan kekuatan {jobClass} dan jadi {role}. Tapi ya gitu deh, {subjek} harus hadapin takdir yang berat. Kasian sih, tapi bodo amat.",
+                "Bro, kenalin {name}. Dia {role} level {level} dengan job {jobClass}. Pernah {peristiwa}, sekarang {tujuan}. Gokil abis, anjir!",
+                "{name} emang low profile, tapi aslinya {role} tersembunyi. Pas {peristiwa}, tiba-tiba ngegas dan dapet job {jobClass}. Sekarang dia bilang: '{quote}'. Sombong amat!"
+            ];
+
+            const peristiwaList = [
+                "nyelametin putri dari naga, eh malah ditikung", "dikhianati sahabat, bangsat emang", "nemu pedang legendaris, tapi palsu",
+                "terjebak di dungeon 100 tahun, jadi pikun", "bangkitin kekuatan iblis, jadi makin bejat", "kehilangan keluarga gegara perang, jadi trauma",
+                "belajar sihir dari roh kuno, eh malah sesat", "jelajah ribuan dunia, tapi tetep aja jomblo", "dikutuk jadi abadi, bosen idup", "ngorbanin segalanya demi cinta, eh dicampakkan",
+                "nyasar di hutan alien, ketemu makhluk aneh", "kepleset masuk portal isekai, sial banget", "makan buah misterius, jadi alay", "nge-charge HP kelewatan, korslet otaknya"
+            ];
+
+            const tujuanList = [
+                "cari keabadian, biar bisa nyiksa orang terus", "balas dendam, sampe puas", "nemuin One Piece versi dunia ini, biar kaya", "lindungin yang lemah, biar dipuji",
+                "jadi raja iblis, biar ditakuti", "ciptain dunia tanpa penderitaan, utopis banget", "kumpulin semua artifact, biar OP", "capai level ∞, biar sombong",
+                "jadi YouTuber terkenal, biar dapet duit", "nikahin waifu, biar gak kesepian", "bikin guild sendiri, biar ada temen mabar"
+            ];
+
+            const quotes = [
+                "Gue nggak bakal nyerah! Kecuali kalo lawannya cheater.", "Cuma pedang ini yang bisa ubah takdir gue. Atau enggak sama sekali.", "Kekuatan sejati datengnya dari hati. Atau dari item mahal.",
+                "Isekai itu kesempatan kedua, bro. Jangan disia-siain buat jadi beban.", "Jangan remehin role rendahan! Bisa jadi OP kalo ada bug.", "Level mah cuma angka, tekad adalah segalanya. Atau duit.",
+                "Siapa takut, gw pro player! Asal jangan lag aja.", "YOLO, gas aja! Kalo mati ya udah.", "Tier rendah? yang penting keren. Walaupun useless."
+            ];
+
+            const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+            function generateItems() {
+                const count = randomInt(4, 7);
+                const items = [];
+                for (let i = 0; i < count; i++) {
+                    const tier = random(tierList);
+                    const type = random(itemTypes);
+                    const adj = random(itemAdjectives);
+                    items.push({ name: `${adj} ${type}`, tier });
+                }
+                return items;
+            }
+
+            function generateName() {
+                return `${random(firstNames)} ${random(lastNames)}`;
+            }
+
+            function generateBiodata(char) {
+                let template = random(biodataTemplates);
+                const peristiwa = random(peristiwaList);
+                const tujuan = random(tujuanList);
+                const quote = random(quotes);
+                const item1 = char.items.length > 0 ? char.items[0].name : "senjata biasa";
+                const itemCount = char.items.length;
+                const subjek = char.name.split(' ')[0];
+
+                let biodata = template
+                    .replace(/{name}/g, char.name)
+                    .replace(/{role}/g, char.role)
+                    .replace(/{jobClass}/g, char.jobClass)
+                    .replace(/{level}/g, char.level)
+                    .replace(/{peristiwa}/g, peristiwa)
+                    .replace(/{tujuan}/g, tujuan)
+                    .replace(/{quote}/g, quote)
+                    .replace(/{item1}/g, item1)
+                    .replace(/{itemCount}/g, itemCount)
+                    .replace(/{subjek}/g, subjek);
+
+                return biodata;
+            }
+
+            async function fetchImageByGender(gender) {
+                const endpoint = gender === "Pria" 
+                    ? 'https://nekos.best/api/v2/husbando?amount=1' 
+                    : 'https://nekos.best/api/v2/waifu?amount=1';
+                try {
+                    const response = await fetch(endpoint);
+                    const data = await response.json();
+                    return data.results[0].url;
+                } catch (error) {
+                    console.error('Gagal ambil gambar, pakai fallback', error);
+                    return `https://api.dicebear.com/9.x/adventurer/svg?seed=${randomInt(1,9999)}&backgroundColor=b6e3f4,c0aede,d1d4f9&scale=90`;
+                }
+            }
+
+            function getHighestTier(items) {
+                const tierRank = { "E":1, "D":2, "C":3, "B":4, "A":5, "S":6, "SSR":7, "SSR++":8 };
+                let highest = "E";
+                items.forEach(item => {
+                    if (tierRank[item.tier] > tierRank[highest]) highest = item.tier;
+                });
+                return highest;
+            }
+
+            async function generateCharacter() {
+                const name = generateName();
+                const gender = random(genders);
+                const role = random(roles);
+                const jobClass = random(jobClasses);
+                const levelRand = randomInt(1, 500);
+                let level, isInfinity = false;
+                if (levelRand === 500) {
+                    level = "∞ Infinity";
+                    isInfinity = true;
+                } else {
+                    level = randomInt(1, 999).toString();
+                }
+
+                const items = generateItems();
+                const imageUrl = await fetchImageByGender(gender);
+
+                const char = { name, gender, role, jobClass, level, isInfinity, items, imageUrl };
+                char.biodata = generateBiodata(char);
+                return char;
+            }
+
+            function renderCharacter(char) {
+                const area = document.getElementById('resultArea');
+                let itemsHtml = '';
+                char.items.forEach(item => {
+                    let tierClass = 'tier-' + item.tier.replace('+', 'plus');
+                    itemsHtml += `<span class="item-chip"><span class="tier-badge ${tierClass}">${item.tier}</span> ${item.name}</span>`;
+                });
+
+                const levelDisplay = char.isInfinity ? 
+                    `<span class="stat-value">∞ Infinity <span class="infinity-badge"><i class="fas fa-star"></i> LEGENDARY</span></span>` : 
+                    `<span class="stat-value">${char.level}</span>`;
+
+                const highestTier = getHighestTier(char.items);
+                const tierClassForContainer = 'highest-tier-' + highestTier.replace('+', 'plus');
+
+                area.innerHTML = `
+                    <div class="character-container ${tierClassForContainer}">
+                        <div class="avatar">
+                            <div class="avatar-img">
+                                <img src="${char.imageUrl}" alt="${char.name}" 
+                                     onerror="this.src='https://api.dicebear.com/9.x/adventurer/svg?seed=fallback${randomInt(1,999)}&backgroundColor=b6e3f4,c0aede,d1d4f9'">
+                            </div>
+                            <div class="char-name">${char.name}</div>
+                            <span class="gender-badge"><i class="fas ${char.gender === 'Pria' ? 'fa-mars' : 'fa-venus'}"></i> ${char.gender}</span>
+                            <div class="avatar-badges">
+                                <span class="role-badge"><i class="fas fa-shield-alt"></i> ${char.role}</span>
+                                <span class="job-badge"><i class="fas fa-briefcase"></i> ${char.jobClass}</span>
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-line">
+                                <span class="stat-label"><i class="fas fa-shield-alt"></i> Role</span>
+                                <span class="stat-value">${char.role}</span>
+                            </div>
+                            <div class="stat-line">
+                                <span class="stat-label"><i class="fas fa-briefcase"></i> Job Class</span>
+                                <span class="stat-value">${char.jobClass}</span>
+                            </div>
+                            <div class="stat-line">
+                                <span class="stat-label"><i class="fas fa-level-up-alt"></i> Level</span>
+                                ${levelDisplay}
+                            </div>
+                            <div class="stat-line" style="border-bottom: none;">
+                                <span class="stat-label"><i class="fas fa-chess-board"></i> Equipment</span>
+                                <div class="items-grid" style="flex:1;">
+                                    ${itemsHtml}
+                                </div>
+                            </div>
+                            <div class="biodata-box">
+                                <i class="fas fa-scroll"></i> ${char.biodata}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Navigasi halaman
+            const generatorPage = document.getElementById('generatorPage');
+            const detailsPage = document.getElementById('detailsPage');
+            const detailBtn = document.getElementById('detailBtn');
+            const backBtn = document.getElementById('backBtn');
+
+            detailBtn.addEventListener('click', () => {
+                generatorPage.classList.add('hidden');
+                detailsPage.classList.remove('hidden');
+            });
+
+            backBtn.addEventListener('click', () => {
+                detailsPage.classList.add('hidden');
+                generatorPage.classList.remove('hidden');
+            });
+
+            document.getElementById('isekaiBtn').addEventListener('click', async () => {
+                const area = document.getElementById('resultArea');
+                area.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Memanggil takdir isekai...</div>`;
+                try {
+                    const character = await generateCharacter();
+                    renderCharacter(character);
+                } catch (e) {
+                    area.innerHTML = `<div class="loading">Gagal memanggil karakter. Coba lagi.</div>`;
+                }
+            });
+
+            window.addEventListener('load', async () => {
+                const area = document.getElementById('resultArea');
+                area.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Memanggil takdir isekai...</div>`;
+                try {
+                    const initialChar = await generateCharacter();
+                    renderCharacter(initialChar);
+                } catch (e) {
+                    area.innerHTML = `<div class="loading">Gagal memanggil karakter. Refresh?</div>`;
+                }
+            });
+        })();
+    </script>
+    <!-- API nekos.best tetap digunakan untuk gambar anime -->
 </body>
-</html>
+</html
